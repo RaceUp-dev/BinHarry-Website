@@ -79,6 +79,16 @@ class ApiClient {
     });
   }
 
+  async verifyEmail(token: string): Promise<ApiResponse<void>> {
+    return this.request<void>(`/api/auth/verify-email?token=${encodeURIComponent(token)}`);
+  }
+
+  async sendVerificationEmail(): Promise<ApiResponse<void>> {
+    return this.request<void>('/api/auth/send-verification', {
+      method: 'POST',
+    });
+  }
+
   // Users
   async getMe(): Promise<ApiResponse<User>> {
     return this.request<User>('/api/users/me');

@@ -6,6 +6,7 @@ export interface User {
   prenom: string;
   role: 'user' | 'admin';
   avatar_url: string | null;
+  email_verified: number;
   created_at: string;
   is_active: number;
 }

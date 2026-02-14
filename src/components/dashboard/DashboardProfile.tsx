@@ -104,7 +104,14 @@ export default function DashboardProfile() {
           </div>
           <div className="profile-field">
             <span className="profile-label">Email</span>
-            <span className="profile-value">{user.email}</span>
+            <span className="profile-value">
+              {user.email}
+              {user.email_verified ? (
+                <span className="email-verified-badge">✓ Vérifié</span>
+              ) : (
+                <span className="email-unverified-badge">Non vérifié</span>
+              )}
+            </span>
           </div>
           <div className="profile-field">
             <span className="profile-label">Rôle</span>
@@ -141,6 +148,26 @@ export default function DashboardProfile() {
         .profile-value {
           font-size: 1rem;
           color: #1a1a2e;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+        .email-verified-badge {
+          background: #d1fae5;
+          color: #059669;
+          padding: 0.2rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-weight: 500;
+        }
+        .email-unverified-badge {
+          background: #fef3c7;
+          color: #b45309;
+          padding: 0.2rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-weight: 500;
         }
       `}</style>
     </div>

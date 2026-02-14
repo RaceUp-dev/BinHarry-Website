@@ -571,6 +571,97 @@
   margin: 0 0 1rem 0;
 }
 
+/* Email Verification Banner */
+.email-verification-banner {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.banner-icon {
+  flex-shrink: 0;
+  color: #b45309;
+}
+
+.banner-text {
+  flex: 1;
+}
+
+.banner-text strong {
+  display: block;
+  color: #92400e;
+  font-size: 0.95rem;
+}
+
+.banner-text p {
+  margin: 0.25rem 0 0 0;
+  color: #a16207;
+  font-size: 0.85rem;
+}
+
+.banner-message {
+  font-weight: 500;
+}
+
+.banner-message.success {
+  color: #059669;
+}
+
+.banner-message.error {
+  color: #dc2626;
+}
+
+.banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.banner-button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.banner-button.primary {
+  background: #b45309;
+  color: white;
+}
+
+.banner-button.primary:hover:not(:disabled) {
+  background: #92400e;
+}
+
+.banner-button.primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.banner-button.secondary {
+  background: transparent;
+  color: #92400e;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.banner-button.secondary:hover {
+  background: rgba(180, 83, 9, 0.1);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .dashboard {
@@ -611,5 +702,19 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+  }
+
+  .email-verification-banner {
+    padding: 1rem;
+  }
+
+  .banner-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner-actions {
+    width: 100%;
+    justify-content: center;
   }
 }

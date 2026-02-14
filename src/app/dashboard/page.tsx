@@ -7,6 +7,7 @@ import DashboardProfile from '@/components/dashboard/DashboardProfile';
 import DashboardSubscriptions from '@/components/dashboard/DashboardSubscriptions';
 import DashboardMailbox from '@/components/dashboard/DashboardMailbox';
 import DashboardSettings from '@/components/dashboard/DashboardSettings';
+import EmailVerificationBanner from '@/components/dashboard/EmailVerificationBanner';
 import './dashboard.css';
 
 type TabType = 'profile' | 'subscriptions' | 'mailbox' | 'settings';
@@ -85,6 +86,7 @@ export default function DashboardPage() {
       </aside>
 
       <main className="dashboard-content">
+        <EmailVerificationBanner />
         <h1 className="dashboard-title">{tabs.find(t => t.id === activeTab)?.label}</h1>
         {renderContent()}
       </main>
