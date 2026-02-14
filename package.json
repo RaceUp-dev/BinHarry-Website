@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run clean:cache",
-    "clean:cache": "node -e \"const fs = require('fs'); const path = require('path'); const cacheDir = path.join('.next', 'cache'); if (fs.existsSync(cacheDir)) { fs.rmSync(cacheDir, { recursive: true, force: true }); console.log('Cache cleared'); }\"",
+    "build": "next build && rimraf '.next/cache'",
     "start": "next start",
     "lint": "next lint",
     "deploy": "echo 'Deployed to Cloudflare Pages'"
@@ -19,6 +18,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "typescript": "^5",
+    "rimraf": "^5.0.0"
   }
 }
