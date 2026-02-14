@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && rimraf '.next/cache'",
     "start": "next start",
     "lint": "next lint",
     "deploy": "npm run build && wrangler deploy",
@@ -20,7 +20,11 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5",
+<<<<<<< HEAD
     "open-next": "^3.0.0",
     "wrangler": "^3.0.0"
+=======
+    "rimraf": "^5.0.0"
+>>>>>>> 5b6d924154e88b7465ee6e505adb27c24c5ff375
   }
 }
