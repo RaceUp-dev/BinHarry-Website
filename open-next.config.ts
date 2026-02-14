@@ -1,3 +1,13 @@
-// Ce fichier n'est pas utilisé - le site est déployé sur Cloudflare Pages
-// Pas besoin de configuration OpenNext
-export {};
+const config = {
+  default: {
+    override: 'cloudflare-workers',
+  },
+  middleware: {
+    external: false,
+  },
+  imageOptimization: {
+    external: true,
+  },
+};
+
+export default config;

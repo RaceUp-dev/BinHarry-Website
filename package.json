@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "echo 'Deployed to Cloudflare Pages'"
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "wrangler dev"
   },
   "dependencies": {
     "next": "^15.1.12",
@@ -18,6 +19,8 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "typescript": "^5",
+    "open-next": "^3.0.0",
+    "wrangler": "^3.0.0"
   }
 }

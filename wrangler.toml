@@ -1,4 +1,14 @@
 name = "website"
-pages_build_output_dir = ".next"
+main = "./.open-next/worker.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+route = "binharry.fr/*"
+zone_id = "YOUR_ZONE_ID"
+
+[[env.production.routes]]
+pattern = "binharry.fr/*"
+zone_id = "YOUR_ZONE_ID"
 
 
