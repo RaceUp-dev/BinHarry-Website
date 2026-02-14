@@ -11,6 +11,9 @@ out/
 build/
 dist/
 
+# Next.js cache (important for Cloudflare Pages)
+.next/cache/
+
 # Testing
 coverage/
 
