@@ -1,4 +1,4 @@
-name = "binharry-website"
+name = "website"
 pages_build_output_dir = ".next"
 
 
