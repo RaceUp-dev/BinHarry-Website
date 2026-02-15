@@ -111,6 +111,10 @@
   border-color: #1a1a2e;
 }
 
+.password-wrapper input {
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+}
+
 .form-hint {
   color: #888;
   font-size: 0.8rem;
@@ -225,4 +229,44 @@
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+}
+
+/* Password visibility toggle */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  color: #666;
+}
+
+.password-toggle:hover {
+  opacity: 0.7;
+}
+
+.password-toggle:focus {
+  outline: none;
+}
+
+.eye-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
 }
