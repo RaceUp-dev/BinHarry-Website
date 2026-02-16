@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import type { PublicMember, Annonce } from '@/types';
+import { products } from '@/data/products';
 
 export default function HomeContent() {
   const [members, setMembers] = useState<PublicMember[]>([]);
@@ -104,6 +105,34 @@ export default function HomeContent() {
               Bientôt disponible
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* Boutique Preview */}
+      <section className="home-section">
+        <div className="section-header-row">
+          <div>
+            <span className="section-label">BOUTIQUE</span>
+            <h2 className="section-title">Nos Nouveautés</h2>
+          </div>
+          <Link href="/boutique" className="section-link">
+            Voir Tout
+          </Link>
+        </div>
+        <div className="shop-grid">
+          {products.filter(p => p.isNew).slice(0, 5).map((product) => (
+            <Link href="/boutique" key={product.id} className="shop-card">
+              <div className="shop-card-image">
+                {product.isNew && <span className="shop-badge">NOUVEAU</span>}
+                <span className="shop-placeholder">Image produit</span>
+              </div>
+              <div className="shop-card-info">
+                <h3 className="shop-card-name">{product.name}</h3>
+                {product.variant && <span className="shop-card-variant">{product.variant}</span>}
+                <span className="shop-card-price">{product.price} €</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
