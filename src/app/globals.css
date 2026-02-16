@@ -46,10 +46,17 @@ main {
 }
 
 .navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
   text-decoration: none;
+}
+
+.navbar-logo-img {
+  border-radius: 6px;
 }
 
 .navbar-nav {

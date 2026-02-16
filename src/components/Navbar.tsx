@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -28,6 +29,13 @@ export default function Navbar() {
     <header className="navbar">
       <div className="navbar-content">
         <Link href="/" className="navbar-logo">
+          <Image 
+            src="/asset/BinHarry.png" 
+            alt="Logo BinHarry" 
+            width={40} 
+            height={40}
+            className="navbar-logo-img"
+          />
           BinHarry
         </Link>
         
