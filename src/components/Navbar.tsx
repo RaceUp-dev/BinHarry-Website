@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -28,11 +29,19 @@ export default function Navbar() {
     <header className="navbar">
       <div className="navbar-content">
         <Link href="/" className="navbar-logo">
+          <Image 
+            src="/asset/BinHarry.png" 
+            alt="Logo BinHarry" 
+            width={40} 
+            height={40}
+            className="navbar-logo-img"
+          />
           BinHarry
         </Link>
         
         <nav className="navbar-nav">
           <Link href="/">Accueil</Link>
+          <Link href="/boutique">Boutique</Link>
           
           <div className="navbar-user" ref={dropdownRef}>
             {isLoading ? (
@@ -62,6 +71,7 @@ export default function Navbar() {
                     <div className="navbar-dropdown-header">
                       <strong>{user.prenom} {user.nom}</strong>
                       <span>{user.email}</span>
+                      {user.role === 'founder' && <span className="admin-badge founder-badge">Founder</span>}
                       {user.role === 'admin' && <span className="admin-badge">Admin</span>}
                     </div>
                     <div className="navbar-dropdown-divider" />
@@ -72,7 +82,7 @@ export default function Navbar() {
                     >
                       Mon tableau de bord
                     </Link>
-                    {user.role === 'admin' && (
+                    {(user.role === 'admin' || user.role === 'founder') && (
                       <Link 
                         href="/admin" 
                         className="navbar-dropdown-item"

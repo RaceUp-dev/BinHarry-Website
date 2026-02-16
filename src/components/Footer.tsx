@@ -12,6 +12,7 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Liens utiles</h4>
           <nav className="footer-nav">
+            <Link href="/about">À propos</Link>
             <Link href="/mentions-legales">Mentions Légales</Link>
             <Link href="/cgv">CGV</Link>
           </nav>

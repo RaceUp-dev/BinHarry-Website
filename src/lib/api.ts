@@ -1,4 +1,4 @@
-import type { ApiResponse, AuthResponse, User, PaginatedResponse, Message, Abonnement, UpdateUserData, PublicMember, Annonce } from '@/types';
+import type { ApiResponse, AuthResponse, User, PaginatedResponse, Message, Abonnement, UpdateUserData, PublicMember, Annonce, AdminUserStats } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8787';
 
@@ -253,6 +253,26 @@ class ApiClient {
     par_type: Array<{ type: string; count: number; total_prix: number }>;
   }>> {
     return this.request('/api/subscriptions/stats');
+  }
+
+  // Admin - User Stats
+  async getUserStats(): Promise<ApiResponse<AdminUserStats>> {
+    return this.request<AdminUserStats>('/api/users/stats');
+  }
+
+  // Admin - Delete user avatar
+  async deleteUserAvatar(id: number): Promise<ApiResponse<void>> {
+    return this.request<void>(`/api/users/${id}/avatar`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Admin - Toggle adhesion
+  async toggleAdhesion(id: number, action: 'add' | 'remove'): Promise<ApiResponse<void>> {
+    return this.request<void>(`/api/users/${id}/adhesion`, {
+      method: 'POST',
+      body: JSON.stringify({ action }),
+    });
   }
 
   // Public

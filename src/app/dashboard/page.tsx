@@ -8,6 +8,7 @@ import DashboardSubscriptions from '@/components/dashboard/DashboardSubscription
 import DashboardMailbox from '@/components/dashboard/DashboardMailbox';
 import DashboardSettings from '@/components/dashboard/DashboardSettings';
 import EmailVerificationBanner from '@/components/dashboard/EmailVerificationBanner';
+import { IconUser, IconCreditCard, IconMail, IconSettings } from '@/components/Icons';
 import './dashboard.css';
 
 type TabType = 'profile' | 'subscriptions' | 'mailbox' | 'settings';
@@ -36,11 +37,11 @@ export default function DashboardPage() {
     return null;
   }
 
-  const tabs: { id: TabType; label: string; icon: string }[] = [
-    { id: 'profile', label: 'Mon profil', icon: '👤' },
-    { id: 'subscriptions', label: 'Abonnements', icon: '💳' },
-    { id: 'mailbox', label: 'Messagerie', icon: '📬' },
-    { id: 'settings', label: 'Paramètres', icon: '⚙️' },
+  const tabs: { id: TabType; label: string; icon: React.ReactNode }[] = [
+    { id: 'profile', label: 'Mon profil', icon: <IconUser size={18} /> },
+    { id: 'subscriptions', label: 'Abonnements', icon: <IconCreditCard size={18} /> },
+    { id: 'mailbox', label: 'Messagerie', icon: <IconMail size={18} /> },
+    { id: 'settings', label: 'Paramètres', icon: <IconSettings size={18} /> },
   ];
 
   const renderContent = () => {

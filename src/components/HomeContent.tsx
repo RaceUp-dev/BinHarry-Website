@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import type { PublicMember, Annonce } from '@/types';
+import { products } from '@/data/products';
 
 export default function HomeContent() {
   const [members, setMembers] = useState<PublicMember[]>([]);
@@ -38,6 +39,49 @@ export default function HomeContent() {
             </a>
           </div>
         </div>
+      </section>
+
+      {/* Annonces */}
+      <section className="home-section">
+        <h2 className="section-title">Annonces & Événements</h2>
+        {annonces.length > 0 ? (
+          <div className="annonces-grid">
+            {annonces.map((a) => (
+              <div key={a.id} className="annonce-card">
+                <div className="annonce-header">
+                  <h3>{a.titre}</h3>
+                  {a.date_evenement && (
+                    <span className="annonce-date">
+                      {new Date(a.date_evenement).toLocaleDateString('fr-FR', {
+                        day: 'numeric', month: 'long', year: 'numeric',
+                      })}
+                    </span>
+                  )}
+                </div>
+                <p>{a.contenu}</p>
+                {a.auteur_prenom && (
+                  <span className="annonce-author">
+                    Par {a.auteur_prenom} {a.auteur_nom}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="annonce-empty">
+            <div className="annonce-empty-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="6" y="10" width="36" height="28" rx="4" stroke="#cbd5e1" strokeWidth="2"/>
+                <path d="M6 18h36M18 18v20" stroke="#cbd5e1" strokeWidth="2"/>
+                <circle cx="12" cy="14" r="1.5" fill="#cbd5e1"/>
+                <circle cx="17" cy="14" r="1.5" fill="#cbd5e1"/>
+                <circle cx="22" cy="14" r="1.5" fill="#cbd5e1"/>
+              </svg>
+            </div>
+            <p className="annonce-empty-title">Aucune annonce pour le moment</p>
+            <p className="annonce-empty-desc">Les prochaines soirées et événements seront annoncés ici. Reste connecté !</p>
+          </div>
+        )}
       </section>
 
       {/* Adhésion */}
@@ -107,47 +151,32 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* Annonces */}
+      {/* Boutique Preview */}
       <section className="home-section">
-        <h2 className="section-title">Annonces & Événements</h2>
-        {annonces.length > 0 ? (
-          <div className="annonces-grid">
-            {annonces.map((a) => (
-              <div key={a.id} className="annonce-card">
-                <div className="annonce-header">
-                  <h3>{a.titre}</h3>
-                  {a.date_evenement && (
-                    <span className="annonce-date">
-                      {new Date(a.date_evenement).toLocaleDateString('fr-FR', {
-                        day: 'numeric', month: 'long', year: 'numeric',
-                      })}
-                    </span>
-                  )}
-                </div>
-                <p>{a.contenu}</p>
-                {a.auteur_prenom && (
-                  <span className="annonce-author">
-                    Par {a.auteur_prenom} {a.auteur_nom}
-                  </span>
-                )}
+        <div className="section-header-row">
+          <div>
+            <span className="section-label">BOUTIQUE</span>
+            <h2 className="section-title">Nos Nouveautés</h2>
+          </div>
+          <Link href="/boutique" className="section-link">
+            Voir Tout
+          </Link>
+        </div>
+        <div className="shop-grid">
+          {products.filter(p => p.isNew).slice(0, 5).map((product) => (
+            <Link href="/boutique" key={product.id} className="shop-card">
+              <div className="shop-card-image">
+                {product.isNew && <span className="shop-badge">NOUVEAU</span>}
+                <span className="shop-placeholder">Image produit</span>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="annonce-empty">
-            <div className="annonce-empty-icon">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <rect x="6" y="10" width="36" height="28" rx="4" stroke="#cbd5e1" strokeWidth="2"/>
-                <path d="M6 18h36M18 18v20" stroke="#cbd5e1" strokeWidth="2"/>
-                <circle cx="12" cy="14" r="1.5" fill="#cbd5e1"/>
-                <circle cx="17" cy="14" r="1.5" fill="#cbd5e1"/>
-                <circle cx="22" cy="14" r="1.5" fill="#cbd5e1"/>
-              </svg>
-            </div>
-            <p className="annonce-empty-title">Aucune annonce pour le moment</p>
-            <p className="annonce-empty-desc">Les prochaines soirées et événements seront annoncés ici. Reste connecté !</p>
-          </div>
-        )}
+              <div className="shop-card-info">
+                <h3 className="shop-card-name">{product.name}</h3>
+                {product.variant && <span className="shop-card-variant">{product.variant}</span>}
+                <span className="shop-card-price">{product.price} €</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* Mur des membres */}

@@ -4,7 +4,7 @@ export interface User {
   email: string;
   nom: string;
   prenom: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'admin' | 'founder';
   avatar_url: string | null;
   email_verified: number;
   created_at: string;
@@ -86,4 +86,22 @@ export interface UpdateUserData {
   avatar_url?: string | null;
   is_active?: boolean;
   role?: 'user' | 'admin';
+}
+
+// Type pour les statistiques admin détaillées
+export interface AdminUserStats {
+  totalUsers: number;
+  activeUsers: number;
+  adminUsers: number;
+  verifiedUsers: number;
+  adherents: number;
+  registrationsPerMonth: Array<{ month: string; count: number }>;
+  registrationsPerDay: Array<{ day: string; count: number }>;
+  loginsPerDay: Array<{ day: string; count: number }>;
+  recentUsers: Array<User & { last_login: string | null }>;
+}
+
+// User étendu pour l'admin (avec last_login)
+export interface AdminUser extends User {
+  last_login: string | null;
 }

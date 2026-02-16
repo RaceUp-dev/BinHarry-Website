@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   description: 'BinHarry, le BDE du BUT Informatique de Reims. Découvrez nos événements, soirées et activités étudiantes.',
   keywords: ['BinHarry', 'BDE', 'BUT Informatique', 'Reims', 'étudiants', 'soirées'],
   authors: [{ name: 'BinHarry' }],
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
