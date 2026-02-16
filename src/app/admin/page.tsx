@@ -22,7 +22,7 @@ export default function AdminPage() {
     if (!isLoading) {
       if (!isAuthenticated) {
         router.push('/auth');
-      } else if (user?.role !== 'admin') {
+      } else if (user?.role !== 'admin' && user?.role !== 'founder') {
         router.push('/dashboard');
       }
     }
@@ -37,9 +37,11 @@ export default function AdminPage() {
     );
   }
 
-  if (!user || user.role !== 'admin') {
+  if (!user || (user.role !== 'admin' && user.role !== 'founder')) {
     return null;
   }
+
+  const isFounder = user.role === 'founder';
 
   const tabs: { id: TabType; label: string; icon: React.ReactNode }[] = [
     { id: 'stats', label: 'Statistiques', icon: <IconBarChart size={18} /> },
@@ -53,7 +55,7 @@ export default function AdminPage() {
       case 'stats':
         return <AdminStats />;
       case 'users':
-        return <AdminUsers />;
+        return <AdminUsers currentUser={user} />;
       case 'subscriptions':
         return <AdminSubscriptions />;
       case 'broadcast':
@@ -102,7 +104,9 @@ export default function AdminPage() {
 
       <main className="dashboard-content">
         <h1 className="dashboard-title">
-          <span className="admin-badge-title">Admin</span>
+          <span className={`admin-badge-title ${isFounder ? 'founder' : ''}`}>
+            {isFounder ? 'Founder' : 'Admin'}
+          </span>
           {tabs.find(t => t.id === activeTab)?.label}
         </h1>
         {renderContent()}

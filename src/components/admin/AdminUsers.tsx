@@ -5,7 +5,12 @@ import { api } from '@/lib/api';
 import type { User } from '@/types';
 import { IconEdit, IconTrash, IconBan, IconCheck, IconImage, IconUserCheck, IconUserX, IconEye } from '@/components/Icons';
 
-export default function AdminUsers() {
+interface AdminUsersProps {
+  currentUser: User;
+}
+
+export default function AdminUsers({ currentUser }: AdminUsersProps) {
+  const isFounder = currentUser.role === 'founder';
   const [users, setUsers] = useState<(User & { last_login?: string | null })[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -216,6 +221,7 @@ export default function AdminUsers() {
             <option value="">Tous les roles</option>
             <option value="user">Utilisateurs</option>
             <option value="admin">Admins</option>
+            <option value="founder">Founders</option>
           </select>
         </div>
 
@@ -310,16 +316,21 @@ export default function AdminUsers() {
               </div>
               <div className="dashboard-form-group">
                 <label>Role</label>
-                <select
-                  value={editingUser.role}
-                  onChange={(e) => {
-                    handleChangeRole(editingUser, e.target.value as 'user' | 'admin');
-                    setEditingUser({ ...editingUser, role: e.target.value as 'user' | 'admin' });
-                  }}
-                >
-                  <option value="user">Utilisateur</option>
-                  <option value="admin">Admin</option>
-                </select>
+                {isFounder && editingUser.role !== 'founder' ? (
+                  <select
+                    value={editingUser.role}
+                    onChange={(e) => {
+                      handleChangeRole(editingUser, e.target.value as 'user' | 'admin');
+                      setEditingUser({ ...editingUser, role: e.target.value as 'user' | 'admin' });
+                    }}
+                  >
+                    <option value="user">Utilisateur</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                ) : (
+                  <input type="text" value={editingUser.role === 'founder' ? 'Founder (non modifiable)' : editingUser.role} disabled />
+                )}
+                {!isFounder && <small style={{ color: '#666', marginTop: '0.25rem', display: 'block' }}>Seul un founder peut modifier les roles</small>}
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <button className="btn btn-primary btn-sm" onClick={() => handleToggleAdhesion(editingUser, 'add')}>

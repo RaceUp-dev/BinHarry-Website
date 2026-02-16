@@ -63,6 +63,7 @@ export default function Navbar() {
                     <div className="navbar-dropdown-header">
                       <strong>{user.prenom} {user.nom}</strong>
                       <span>{user.email}</span>
+                      {user.role === 'founder' && <span className="admin-badge founder-badge">Founder</span>}
                       {user.role === 'admin' && <span className="admin-badge">Admin</span>}
                     </div>
                     <div className="navbar-dropdown-divider" />
@@ -73,7 +74,7 @@ export default function Navbar() {
                     >
                       Mon tableau de bord
                     </Link>
-                    {user.role === 'admin' && (
+                    {(user.role === 'admin' || user.role === 'founder') && (
                       <Link 
                         href="/admin" 
                         className="navbar-dropdown-item"

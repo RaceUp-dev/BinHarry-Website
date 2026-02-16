@@ -187,6 +187,11 @@ main {
   margin-top: 0.25rem;
 }
 
+.admin-badge.founder-badge {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  color: white;
+}
+
 .navbar-dropdown-divider {
   height: 1px;
   background: #e0e0e0;
