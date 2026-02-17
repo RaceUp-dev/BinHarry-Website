@@ -1,4 +1,4 @@
-import type { ApiResponse, AuthResponse, User, PaginatedResponse, Message, Abonnement, UpdateUserData, PublicMember, Annonce, AdminUserStats } from '@/types';
+import type { ApiResponse, AuthResponse, User, PaginatedResponse, Message, Abonnement, UpdateUserData, PublicMember, BDEMember, Annonce, AdminUserStats } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8787';
 
@@ -278,6 +278,10 @@ class ApiClient {
   // Public
   async getMembers(): Promise<ApiResponse<PublicMember[]>> {
     return this.request<PublicMember[]>('/api/public/members');
+  }
+
+  async getBDEMembers(): Promise<ApiResponse<BDEMember[]>> {
+    return this.request<BDEMember[]>('/api/public/bde-members');
   }
 
   async getAnnonces(): Promise<ApiResponse<Annonce[]>> {

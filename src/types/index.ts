@@ -67,6 +67,15 @@ export interface PublicMember {
   created_at: string;
 }
 
+export interface BDEMember {
+  id: number;
+  prenom: string;
+  nom: string;
+  avatar_url: string | null;
+  role: 'admin' | 'founder';
+  created_at: string;
+}
+
 export interface Annonce {
   id: number;
   titre: string;

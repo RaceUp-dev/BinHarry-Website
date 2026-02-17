@@ -1,16 +1,25 @@
-import type { Metadata } from 'next';
+'use client';
+
+import { useEffect, useState } from 'react';
+import type { BDEMember } from '@/types';
+import { api } from '@/lib/api';
 import './about.css';
 
-export const metadata: Metadata = {
-  title: 'À propos | BinHarry - BDE du BUT Informatique de Reims',
-  description: 'Découvrez BinHarry, le Bureau Des Étudiants du BUT Informatique de Reims. Notre mission, notre équipe et nos valeurs.',
-  openGraph: {
-    title: 'À propos | BinHarry',
-    description: 'Découvrez BinHarry, le Bureau Des Étudiants du BUT Informatique de Reims.',
-  },
-};
-
 export default function AboutPage() {
+  const [bdeMembers, setBDEMembers] = useState<BDEMember[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchBDEMembers() {
+      const response = await api.getBDEMembers();
+      if (response.success && response.data) {
+        setBDEMembers(response.data);
+      }
+      setLoading(false);
+    }
+    fetchBDEMembers();
+  }, []);
+
   return (
     <main className="about-page">
       <section className="about-hero">
@@ -51,6 +60,38 @@ export default function AboutPage() {
             <p>Un Discord actif pour échanger, poser des questions et ne rien rater des actualités.</p>
           </div>
         </div>
+      </section>
+
+      <section className="about-section about-section-bde">
+        <h2>BDE actuelle</h2>
+        <p className="about-bde-subtitle">
+          Découvrez les membres qui font vivre BinHarry au quotidien
+        </p>
+        {loading ? (
+          <div className="about-bde-loading">Chargement...</div>
+        ) : bdeMembers.length > 0 ? (
+          <div className="about-bde-grid">
+            {bdeMembers.map((member) => (
+              <div key={member.id} className="about-bde-card">
+                <div className="about-bde-avatar">
+                  {member.avatar_url ? (
+                    <img src={member.avatar_url} alt={`${member.prenom} ${member.nom}`} />
+                  ) : (
+                    <div className="about-bde-avatar-placeholder">
+                      {member.prenom.charAt(0)}{member.nom.charAt(0)}
+                    </div>
+                  )}
+                  <div className={`about-bde-badge about-bde-badge-${member.role}`}>
+                    {member.role === 'founder' ? 'Fondateur' : 'Admin'}
+                  </div>
+                </div>
+                <h3 className="about-bde-name">{member.prenom} {member.nom}</h3>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="about-bde-empty">Aucun membre du BDE pour le moment.</p>
+        )}
       </section>
 
       <section className="about-section">
