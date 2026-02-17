@@ -14,90 +14,111 @@ export default function CGV() {
   return (
     <article className="cgv-container">
       <h1 className="cgv-title">Conditions Générales de Vente</h1>
-      
       <p className="cgv-content">
-        Les présentes conditions de vente sont conclues d’une part par l'association BDE BinHarry (ci-après dénommée "l'Association"), 
-        et d’autre part, par toute personne physique ou morale souhaitant procéder à une adhésion ou un achat via le site internet de l'Association (ci-après dénommée "l'Adhérent" ou "le Client").
+        Les présentes conditions de vente sont conclues entre toute personne physique ou morale souhaitant effectuer un achat sur le site du BDE BinHarry (ci-après « le Client ») et la boutique gérée par Jacques Lucas pour le BDE BinHarry.
       </p>
 
       <section className="cgv-section">
         <h2 className="cgv-subtitle">Article 1. Objet</h2>
         <p className="cgv-content">
-          Les présentes Conditions Générales de Vente (CGV) visent à définir les relations contractuelles entre l'Association et l'Adhérent 
-          ainsi que les conditions applicables à tout achat ou souscription effectué par le biais du site internet de l'Association.
+          Les présentes Conditions Générales de Vente (CGV) définissent les droits et obligations des parties dans le cadre de la vente de produits (goodies, vêtements) proposés par le BDE BinHarry via son site internet.
         </p>
         <p className="cgv-content">
-          L’acquisition d’un bien ou service à travers le présent site implique une acceptation sans réserve par l'Adhérent des présentes conditions de vente.
+          Toute commande implique l’acceptation sans réserve des présentes CGV.
         </p>
       </section>
 
       <section className="cgv-section">
-        <h2 className="cgv-subtitle">Article 2. Services et Adhésion</h2>
+        <h2 className="cgv-subtitle">Article 2. Produits</h2>
         <p className="cgv-content">
-          L'Association propose principalement un service d'adhésion ("Cotisation") permettant d'accéder aux avantages et événements du BDE BinHarry.
+          Les produits proposés sont des goodies et vêtements aux couleurs de BinHarry. Les offres sont valables dans la limite des stocks disponibles. Aucun produit n’est vendu en précommande.
         </p>
         <p className="cgv-content">
-          Cette adhésion est proposée sous forme d'abonnement :
-        </p>
-        <ul className="cgv-list">
-          <li>Sans engagement de durée.</li>
-          <li>Résiliable à tout moment par l'Adhérent depuis son espace personnel.</li>
-          <li>Renouvelable tacitement selon la périodicité choisie lors de la souscription (mensuelle ou annuelle).</li>
-        </ul>
-      </section>
-
-      <section className="cgv-section">
-        <h2 className="cgv-subtitle">Article 3. Tarifs</h2>
-        <p className="cgv-content">
-          Les prix des adhésions sont indiqués en euros (€) toutes taxes comprises (TTC). 
-          L'Association se réserve le droit de modifier ses prix à tout moment, étant toutefois entendu que le prix figurant au catalogue le jour de la commande sera le seul applicable à l'Adhérent.
+          Les photos et descriptions sont les plus fidèles possibles mais n’engagent pas le BDE BinHarry.
         </p>
       </section>
 
       <section className="cgv-section">
-        <h2 className="cgv-subtitle">Article 4. Modalités de Paiement</h2>
+        <h2 className="cgv-subtitle">Article 3. Public concerné</h2>
         <p className="cgv-content">
-          Le règlement des adhésions s'effectue par carte bancaire via une plateforme de paiement sécurisée. 
-          Les données de paiement sont chiffrées et ne transitent pas en clair sur les serveurs de l'Association.
+          Les produits sont ouverts à tous, sans restriction d’âge ou de statut.
         </p>
       </section>
 
       <section className="cgv-section">
-        <h2 className="cgv-subtitle">Article 5. Rétractation et Résiliation</h2>
-        
-        <p className="cgv-content"><strong>5.1. Droit de rétractation</strong></p>
+        <h2 className="cgv-subtitle">Article 4. Prix</h2>
         <p className="cgv-content">
-          Conformément à l’article L221-18 du Code de la consommation, l'Adhérent dispose d’un délai de quatorze (14) jours pour exercer son droit de rétractation 
-          sans avoir à motiver sa décision, à compter de la date de souscription.
-        </p>
-        <p className="cgv-content">
-          Toutefois, si l'Adhérent a expressément demandé à bénéficier des services associés à l'adhésion avant la fin du délai de rétractation 
-          (participation à un événement, accès à des avantages exclusifs), il renonce à ce droit pour la période commencée.
-        </p>
-
-        <p className="cgv-content"><strong>5.2. Résiliation de l'abonnement</strong></p>
-        <p className="cgv-content">
-          L'adhésion étant sans engagement, l'Adhérent peut résilier son abonnement à tout moment via son espace membre sur le site.
-          La résiliation prendra effet à la fin de la période de facturation en cours. Aucun remboursement pro rata temporis ne sera effectué pour la période entamée.
+          Les prix sont indiqués en euros (€) toutes taxes comprises. Le BDE BinHarry se réserve le droit de modifier ses prix à tout moment, mais les produits seront facturés sur la base des tarifs en vigueur au moment de la validation de la commande.
         </p>
       </section>
 
       <section className="cgv-section">
-        <h2 className="cgv-subtitle">Article 6. Responsabilité</h2>
+        <h2 className="cgv-subtitle">Article 5. Commande</h2>
         <p className="cgv-content">
-          L'Association, dans le processus de vente en ligne, n’est tenue que par une obligation de moyens. Sa responsabilité ne pourra être engagée 
-          pour un dommage résultant de l’utilisation du réseau Internet tel que perte de données, intrusion, virus, rupture du service, ou autres problèmes involontaires.
+          La commande s’effectue en ligne sur le site. Toute commande vaut acceptation des prix et description des produits disponibles à la vente.
+        </p>
+        <p className="cgv-content">
+          Le BDE BinHarry se réserve le droit d’annuler ou de refuser toute commande d’un client avec lequel il existerait un litige relatif au paiement d’une commande antérieure.
         </p>
       </section>
 
       <section className="cgv-section">
-        <h2 className="cgv-subtitle">Article 7. Données Personnelles</h2>
+        <h2 className="cgv-subtitle">Article 6. Paiement</h2>
         <p className="cgv-content">
-          L'Association s'engage à préserver la confidentialité des informations fournies par l'Adhérent. 
-          Celles-ci ne seront utilisées que pour la gestion de l'adhésion et la communication interne de l'Association.
-          Conformément à la loi "Informatique et Libertés", l'Adhérent dispose d'un droit d'accès, de modification et de suppression des informations le concernant.
+          Le paiement s’effectue soit en ligne par carte bancaire via Stripe (paiement sécurisé), soit en espèces directement au BDE lors du retrait du produit.
+        </p>
+        <p className="cgv-content">
+          En cas de paiement en ligne, la commande est considérée comme validée à réception du paiement. En cas de paiement en espèces, la commande n’est validée qu’au moment du retrait et du paiement effectif.
         </p>
       </section>
+
+      <section className="cgv-section">
+        <h2 className="cgv-subtitle">Article 7. Livraison et retrait</h2>
+        <p className="cgv-content">
+          Aucun envoi postal n’est proposé. Les produits sont à retirer exclusivement au local du BDE BinHarry, aux horaires communiqués sur le site ou par mail.
+        </p>
+      </section>
+
+      <section className="cgv-section">
+        <h2 className="cgv-subtitle">Article 8. Droit de rétractation et retours</h2>
+        <p className="cgv-content">
+          Conformément à l’article L221-18 du Code de la consommation, le Client dispose d’un délai de quatorze (14) jours à compter du retrait du produit pour exercer son droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.
+        </p>
+        <p className="cgv-content">
+          Pour exercer ce droit, le Client doit contacter le BDE BinHarry par mail à bdebinharry@gmail.com. Le produit doit être retourné dans son état d’origine. Le remboursement sera effectué dans un délai de 14 jours après réception du produit retourné.
+        </p>
+      </section>
+
+      <section className="cgv-section">
+        <h2 className="cgv-subtitle">Article 9. Service client et réclamations</h2>
+        <p className="cgv-content">
+          Pour toute question, réclamation ou demande d’information, le Client peut contacter le BDE BinHarry à l’adresse mail : bdebinharry@gmail.com.
+        </p>
+      </section>
+
+      <section className="cgv-section">
+        <h2 className="cgv-subtitle">Article 10. Données personnelles</h2>
+        <p className="cgv-content">
+          Le BDE BinHarry ne collecte aucune donnée personnelle lors de la commande, hormis celles strictement nécessaires à la gestion de la commande et à la remise du produit. Aucune donnée n’est utilisée à des fins commerciales ou cédée à des tiers.
+        </p>
+      </section>
+
+      <section className="cgv-section">
+        <h2 className="cgv-subtitle">Article 11. Responsabilité</h2>
+        <p className="cgv-content">
+          Le BDE BinHarry ne saurait être tenu responsable des dommages résultant d’une mauvaise utilisation du produit acheté.
+        </p>
+      </section>
+
+      <section className="cgv-section">
+        <h2 className="cgv-subtitle">Article 12. Droit applicable</h2>
+        <p className="cgv-content">
+          Les présentes CGV sont soumises à la loi française. En cas de litige, une solution amiable sera recherchée avant toute action judiciaire.
+        </p>
+      </section>
+    </article>
+  );
+}
 
       <section className="cgv-section">
         <h2 className="cgv-subtitle">Article 8. Règlement des litiges</h2>
