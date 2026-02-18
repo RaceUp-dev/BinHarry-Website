@@ -2,17 +2,14 @@
   "name": "website",
   "main": ".open-next/worker.js",
   "compatibility_date": "2024-12-01",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
   "vars": {
-    "NEXT_PUBLIC_API_URL": "https://binharry-api.jacqueslucas-m2101.workers.dev"
+    "NEXT_PUBLIC_API_URL": "https://binharry-api.bdebinharry.workers.dev"
   }
 }
-
-
-
-
-
