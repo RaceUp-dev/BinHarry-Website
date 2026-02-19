@@ -9,6 +9,12 @@
   },
   "vars": {
     "NEXT_PUBLIC_API_URL": "https://binharry-api.jacqueslucas-m2101.workers.dev"
+  },
+  "observability": {
+    "logs": {
+      "enabled": false,
+      "invocation_logs": true
+    }
   }
 }
 
