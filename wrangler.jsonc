@@ -13,9 +13,18 @@
     "NEXT_PUBLIC_API_URL": "https://binharry-api.bdebinharry.workers.dev"
   },
   "observability": {
+    "enabled": false,
+    "head_sampling_rate": 1,
     "logs": {
-      "enabled": false,
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
       "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1
     }
   }
 }
