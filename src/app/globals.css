@@ -1055,6 +1055,116 @@ main {
   cursor: default;
 }
 
+.gamejam-reaction-status {
+  margin-top: 0.75rem;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.gamejam-reaction-error {
+  margin-top: 0.75rem;
+  color: #b91c1c;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.gamejam-reactions-block {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.gamejam-reactions-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  color: #475569;
+  font-size: 0.8rem;
+  margin-bottom: 0.55rem;
+}
+
+.gamejam-reactions-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.gamejam-reaction-btn {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gamejam-reaction-btn:hover:not(:disabled) {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+}
+
+.gamejam-reaction-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.gamejam-reaction-btn.reaction-like.is-active {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.gamejam-reaction-btn.reaction-dislike.is-active {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.gamejam-reaction-btn.reaction-heart.is-active {
+  background: #ffe4e6;
+  border-color: #fda4af;
+  color: #9f1239;
+}
+
+.gamejam-reactions-login {
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.gamejam-admin-reactions {
+  margin-top: 0.6rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.gamejam-admin-reactions-title {
+  color: #334155;
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.gamejam-admin-reactions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.gamejam-admin-reactions-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.74rem;
+  color: #475569;
+}
+
 .gamejam-all-game-content {
   padding: 0.75rem;
 }
