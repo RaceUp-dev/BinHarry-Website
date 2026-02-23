@@ -836,6 +836,8 @@ main {
 }
 
 .gamejam-mini-card {
+  position: relative;
+  overflow: hidden;
   border-radius: 12px;
   min-height: 90px;
   padding: 1rem;
@@ -847,20 +849,32 @@ main {
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
 }
 
+.gamejam-mini-image {
+  object-fit: cover;
+  z-index: 0;
+}
+
+.gamejam-mini-label {
+  position: relative;
+  z-index: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #0f172a;
+}
+
 .gamejam-mini-card-1 {
   grid-column: span 2;
-  background: linear-gradient(145deg, #f59e0b, #f97316);
-  color: #1f2937;
+}
+
+.gamejam-mini-card-1 .gamejam-mini-image {
+  object-position: center bottom;
 }
 
 .gamejam-mini-card-2 {
-  background: linear-gradient(145deg, #cbd5e1, #94a3b8);
-  color: #1f2937;
 }
 
 .gamejam-mini-card-3 {
-  background: linear-gradient(145deg, #fdba74, #fb923c);
-  color: #1f2937;
 }
 
 /* ========== GAMEJAM PAGE ========== */
