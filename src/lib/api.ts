@@ -1,4 +1,18 @@
-import type { ApiResponse, AuthResponse, User, PaginatedResponse, Message, Abonnement, UpdateUserData, PublicMember, BDEMember, Annonce, AdminUserStats } from '@/types';
+import type {
+  ApiResponse,
+  AuthResponse,
+  User,
+  PaginatedResponse,
+  Message,
+  Abonnement,
+  UpdateUserData,
+  PublicMember,
+  BDEMember,
+  Annonce,
+  AdminUserStats,
+  GameJamReactionType,
+  GameJamReactionsPayload,
+} from '@/types';
 
 const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://binharry-api.bdebinharry.workers.dev').replace(/\/+$/, '');
 
@@ -324,6 +338,27 @@ class ApiClient {
     return this.request<void>(`/api/users/${id}/adhesion`, {
       method: 'POST',
       body: JSON.stringify({ action }),
+    });
+  }
+
+  // GameJam
+  async getGameJamReactions(editionYear: string): Promise<ApiResponse<GameJamReactionsPayload>> {
+    const params = new URLSearchParams({ edition: editionYear });
+    return this.request<GameJamReactionsPayload>(`/api/gamejam/reactions?${params.toString()}`);
+  }
+
+  async toggleGameJamReaction(
+    editionYear: string,
+    gameId: string,
+    reaction: GameJamReactionType
+  ): Promise<ApiResponse<GameJamReactionsPayload>> {
+    return this.request<GameJamReactionsPayload>('/api/gamejam/reactions', {
+      method: 'POST',
+      body: JSON.stringify({
+        edition_year: editionYear,
+        game_id: gameId,
+        reaction,
+      }),
     });
   }
 

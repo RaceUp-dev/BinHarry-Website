@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '@/lib/api';
 import type { PublicMember, Annonce } from '@/types';
 import { products } from '@/data/products';
@@ -166,9 +167,36 @@ export default function HomeContent() {
             </Link>
           </div>
           <div className="gamejam-home-cta-visual" aria-hidden="true">
-            <div className="gamejam-mini-card gamejam-mini-card-1">Top 1</div>
-            <div className="gamejam-mini-card gamejam-mini-card-2">Top 2</div>
-            <div className="gamejam-mini-card gamejam-mini-card-3">Top 3</div>
+            <div className="gamejam-mini-card gamejam-mini-card-1">
+              <Image
+                src={encodeURI('/asset/GameJam/La légende deux gustave et les couleurs Perdu.png')}
+                alt="Top 1 GameJam"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="gamejam-mini-image"
+              />
+              <span className="gamejam-mini-label">Top 1</span>
+            </div>
+            <div className="gamejam-mini-card gamejam-mini-card-2">
+              <Image
+                src={encodeURI('/asset/GameJam/Nova and his missing sister.png')}
+                alt="Top 2 GameJam"
+                fill
+                sizes="(max-width: 768px) 33vw, 25vw"
+                className="gamejam-mini-image"
+              />
+              <span className="gamejam-mini-label">Top 2</span>
+            </div>
+            <div className="gamejam-mini-card gamejam-mini-card-3">
+              <Image
+                src={encodeURI('/asset/GameJam/FNAF Blanchard.png')}
+                alt="Top 3 GameJam"
+                fill
+                sizes="(max-width: 768px) 33vw, 25vw"
+                className="gamejam-mini-image"
+              />
+              <span className="gamejam-mini-label">Top 3</span>
+            </div>
           </div>
         </div>
       </section>

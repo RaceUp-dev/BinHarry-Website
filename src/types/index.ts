@@ -114,3 +114,37 @@ export interface AdminUserStats {
 export interface AdminUser extends User {
   last_login: string | null;
 }
+
+export type GameJamReactionType = 'like' | 'dislike' | 'heart';
+
+export interface GameJamReactionSummary {
+  game_id: string;
+  likes: number;
+  dislikes: number;
+  hearts: number;
+}
+
+export interface GameJamUserReaction {
+  game_id: string;
+  like: boolean;
+  dislike: boolean;
+  heart: boolean;
+}
+
+export interface GameJamAdminDetail {
+  game_id: string;
+  user_id: number;
+  user_nom: string;
+  user_prenom: string;
+  like: boolean;
+  dislike: boolean;
+  heart: boolean;
+  updated_at: string;
+}
+
+export interface GameJamReactionsPayload {
+  edition_year: string;
+  summaries: GameJamReactionSummary[];
+  userReactions: GameJamUserReaction[];
+  adminDetails: GameJamAdminDetail[];
+}

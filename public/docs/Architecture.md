@@ -1,137 +1,103 @@
 # Architecture du projet BinHarry-Website
 
-## Arborescence des dossiers
+## Arborescence (principale)
 
-```
+```text
 BinHarry-Website/
-├── public/
-│   ├── asset/
-│   │   └── img/          # Images du site
-│   ├── docs/
-│   │   ├── Architecture.md
-│   │   └── TODO.md
-│   └── robots.txt
-├── src/
-│   ├── app/                    # App Router Next.js
-│   │   ├── layout.tsx          # Layout principal (Navbar + Footer)
-│   │   ├── globals.css         # Styles globaux
-│   │   ├── page.tsx            # Page d'accueil (STATIQUE)
-│   │   ├── about/
-│   │   │   ├── page.tsx        # Page à propos (DYNAMIQUE - use client)
-│   │   │   ├── about.css       # Styles page à propos
-│   │   │   └── layout.tsx      # Layout avec métadonnées SEO
-│   │   ├── mentions-legales/
-│   │   │   └── page.tsx        # Page mentions légales (DYNAMIQUE)
-│   │   └── cgv/
-│   │       └── page.tsx        # Page CGV (DYNAMIQUE)
-│   ├── components/
-│   │   ├── Navbar.tsx          # Composant dynamique (use client)
-│   │   └── Footer.tsx          # Composant réutilisable
-│   ├── lib/
-│   │   └── api.ts              # Client API pour communiquer avec le backend
-│   └── types/
-│       └── index.ts            # Types TypeScript partagés
-├── .gitignore
-├── next.config.ts              # Configuration Next.js
-├── open-next.config.ts         # Configuration OpenNext
-├── package.json
-├── tsconfig.json
-└── wrangler.jsonc              # Configuration Cloudflare Workers
+|- public/
+|  |- asset/
+|  |  |- GameJam/              # Images des jeux GameJam
+|  |  `- img/                  # Images globales du site
+|  `- docs/
+|     |- Architecture.md
+|     `- TODO.md
+|- src/
+|  |- app/
+|  |  |- layout.tsx            # Layout global (Navbar + Footer)
+|  |  |- globals.css           # Styles globaux
+|  |  |- page.tsx              # Accueil
+|  |  `- gamejam/
+|  |     |- page.tsx           # Page serveur (metadata SEO)
+|  |     |- GameJamClient.tsx  # UI client + interactions reactions
+|  |     `- data.ts            # Donnees edition(s) GameJam
+|  |- components/              # Composants reutilisables
+|  |- context/
+|  |  `- AuthContext.tsx       # Etat d'authentification frontend
+|  |- lib/
+|  |  `- api.ts                # Client API centralise
+|  `- types/
+|     `- index.ts              # Types TypeScript partages
+`- package.json
 ```
 
-## Rôle de chaque dossier
+## Role des dossiers
 
-| Dossier | Description |
-|---------|-------------|
-| `public/` | Fichiers statiques accessibles directement |
-| `public/asset/img/` | Images du design |
-| `public/docs/` | Documentation interne |
-| `src/app/` | Pages et layouts (App Router) |
-| `src/components/` | Composants React réutilisables |
-| `src/lib/` | Utilitaires et clients (API, helpers) |
-| `src/types/` | Définitions TypeScript partagées |
+- `public/`: fichiers statiques servis tels quels.
+- `src/app/`: routes et pages Next.js App Router.
+- `src/components/`: composants UI reutilisables.
+- `src/context/`: etat global frontend (auth).
+- `src/lib/`: utilitaires et client API.
+- `src/types/`: contrats TypeScript partages.
 
-## Stratégie de rendu (OpenNext)
+## Flux de donnees (global)
 
-- **Page principale (`/`)** : Rendu statique au build (SSG)
-- **Autres pages** : Rendu dynamique côté serveur (SSR) via `export const dynamic = 'force-dynamic'`
+1. Le frontend Next.js utilise `api.ts` pour appeler `BinHarry_API`.
+2. Le token JWT (si present) est envoye automatiquement en `Authorization`.
+3. Les composants client consomment les reponses typees (`ApiResponse<T>`).
+4. Les roles (`user`, `admin`, `founder`) pilotent les vues sensibles.
 
-## Flux de données
+## Choix techniques importants
 
-```
-Utilisateur → Cloudflare Edge → OpenNext Worker → Next.js App
-                                     ↓
-                    Page statique (cache) ou rendu dynamique
-```
+- Next.js App Router pour les pages et metadata SEO.
+- Composants client uniquement quand un state interactif est necessaire.
+- Separation claire entre donnees statiques de page (`data.ts`) et logique UI (`GameJamClient.tsx`).
+- Client API unique (`src/lib/api.ts`) pour uniformiser auth, erreurs et fallback dev.
 
-## Déploiement Cloudflare
+## Feature GameJam Reactions
 
-**Type de build recommandé** : Cloudflare Workers avec OpenNext
+### Objectif
 
-### Commandes :
-- `npm run build:cloudflare` - Build pour Cloudflare
-- `npm run preview:cloudflare` - Preview local
-- `npm run deploy:cloudflare` - Déploiement production
+Permettre aux utilisateurs connectes de reagir sur chaque jeu:
+- `Like`
+- `Dislike`
+- `Coeur` (limite a un seul coeur par edition, tous jeux confondus)
 
-### Configuration :
-- Fichier `wrangler.jsonc` pour la config Workers
-- Fichier `open-next.config.ts` pour OpenNext
+### Frontend
 
-## Choix techniques
+- `src/app/gamejam/GameJamClient.tsx`:
+  - affiche compteurs de reactions sous chaque jeu,
+  - affiche boutons de vote aux utilisateurs connectes,
+  - recharge et met a jour l'etat apres chaque action,
+  - affiche les votants par jeu pour `admin` et `founder`.
 
-| Choix | Raison |
-|-------|--------|
-| Next.js 15 | Framework React moderne avec App Router |
-| TypeScript | Typage statique pour maintenabilité |
-| OpenNext | Adapter Next.js pour Cloudflare Workers |
-| Cloudflare Workers | Edge computing, faible latence, pas de cold start |
+- `src/lib/api.ts`:
+  - `getGameJamReactions(editionYear)`
+  - `toggleGameJamReaction(editionYear, gameId, reaction)`
 
-## Dépendances clés
+- `src/types/index.ts`:
+  - `GameJamReactionType`
+  - `GameJamReactionSummary`
+  - `GameJamUserReaction`
+  - `GameJamAdminDetail`
+  - `GameJamReactionsPayload`
 
-| Package | Version | Rôle |
-|---------|---------|------|
-| next | 15.1.0 | Framework React |
-| @opennextjs/cloudflare | ^0.5.0 | Adapter Cloudflare |
-| wrangler | ^3 | CLI Cloudflare |
+### Backend associe (BinHarry_API)
 
-## Composants
+- Route: `src/routes/gamejam.ts`
+  - `GET /api/gamejam/reactions?edition=YYYY`
+  - `POST /api/gamejam/reactions`
 
-### Navbar (`src/components/Navbar.tsx`)
-- Composant **client** (`'use client'`)
-- Prévu pour intégrer l'authentification utilisateur
-- Sticky en haut de page
+- Schema: `schema.sql`
+  - table `GameJamReaction`
+  - index de perfs par edition/jeu et utilisateur/edition
+  - index unique partiel pour garantir un seul `Coeur` par utilisateur et edition
 
-### Footer (`src/components/Footer.tsx`)
-- Composant **serveur** (par défaut)
-- Liens vers : Mentions Légales, CGV
-- Lien Discord : https://discord.gg/wXpRMds6BC
-- Copyright dynamique avec année courante
-## Pages
+### Flux GameJam detaille
 
-### Page À propos (`src/app/about/page.tsx`)
-- Composant **client** (`'use client'`)
-- Affiche la mission, les activités et les membres du BDE
-- Section dynamique "BDE actuelle" qui récupère et affiche les membres avec le rôle admin/founder
-- Utilise l'API publique `/api/public/bde-members` pour récupérer les données
-- Métadonnées SEO gérées dans `src/app/about/layout.tsx`
-
-## API Backend (BinHarry_API)
-
-### Endpoints publics utilisés
-- `GET /api/public/bde-members` - Récupère les membres du BDE (admins et founders)
-  - Retourne : `{ id, prenom, nom, avatar_url, role, created_at }`
-  - Tri : Founders en premier, puis admins, puis par date de création
-
-### Client API (`src/lib/api.ts`)
-- Classe `ApiClient` pour centraliser les appels API
-- Méthode `getBDEMembers()` : Récupère les membres du BDE
-- Gestion automatique du token d'authentification (localStorage)
-- Gestion des erreurs et réponses typées
-
-## Types TypeScript (`src/types/index.ts`)
-
-### Types principaux
-- `User` : Utilisateur complet avec authentification
-- `BDEMember` : Membre du BDE avec rôle (admin/founder)
-- `PublicMember` : Membre public (pour la liste des adhérents)
-- `ApiResponse<T>` : Réponse API générique typée
+1. Le client charge les reactions de l'edition.
+2. L'utilisateur clique `Like`, `Dislike` ou `Coeur`.
+3. L'API applique les regles metier:
+   - `Like` et `Dislike` sont exclusifs sur un meme jeu.
+   - `Coeur` est unique par edition.
+4. L'API renvoie l'etat mis a jour.
+5. Le client met a jour la carte du jeu sans rechargement de page.
