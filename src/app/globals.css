@@ -959,23 +959,9 @@ main {
 }
 
 .gamejam-image-placeholder {
+  position: relative;
   min-height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  color: #64748b;
-  background:
-    linear-gradient(135deg, rgba(148, 163, 184, 0.2) 0%, rgba(203, 213, 225, 0.3) 100%),
-    repeating-linear-gradient(
-      -45deg,
-      rgba(100, 116, 139, 0.12) 0,
-      rgba(100, 116, 139, 0.12) 10px,
-      transparent 10px,
-      transparent 20px
-    );
-  padding: 1rem;
-  text-align: center;
+  background: #e2e8f0;
 }
 
 .gamejam-card-content {
@@ -1054,23 +1040,19 @@ main {
 }
 
 .gamejam-all-game-image {
+  position: relative;
   min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.82rem;
+  background: #e2e8f0;
+}
+
+.gamejam-image {
+  object-fit: cover;
+}
+
+.gamejam-link-disabled {
   color: #64748b;
-  background:
-    linear-gradient(135deg, rgba(148, 163, 184, 0.15) 0%, rgba(203, 213, 225, 0.25) 100%),
-    repeating-linear-gradient(
-      -45deg,
-      rgba(100, 116, 139, 0.1) 0,
-      rgba(100, 116, 139, 0.1) 10px,
-      transparent 10px,
-      transparent 20px
-    );
-  padding: 0.75rem;
-  text-align: center;
+  text-decoration: none;
+  cursor: default;
 }
 
 .gamejam-all-game-content {

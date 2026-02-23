@@ -1,19 +1,20 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 type Winner = {
   rank: 1 | 2 | 3;
   title: string;
   team: string;
-  imagePlaceholder: string;
-  githubUrl: string;
+  imageFile: string;
+  githubUrl?: string;
 };
 
 type GameEntry = {
   id: string;
   title: string;
   team: string;
-  imagePlaceholder: string;
-  githubUrl: string;
+  imageFile: string;
+  githubUrl?: string;
   isPodium?: boolean;
 };
 
@@ -25,79 +26,69 @@ type GameJamYear = {
 
 const gameJamResults: GameJamYear[] = [
   {
-    year: '2025',
+    year: '2026',
     winners: [
       {
         rank: 1,
-        title: 'Nom du jeu gagnant #1',
-        team: 'Equipe Alpha',
-        imagePlaceholder: 'Placeholder image - jeu #1',
-        githubUrl: '#',
+        title: 'La Legende Deux Gustave Et Les Couleurs Perdu',
+        team: 'Les Table Tope',
+        imageFile: 'La l\u00e9gende deux gustave et les couleurs Perdu.png',
       },
       {
         rank: 2,
-        title: 'Nom du jeu gagnant #2',
-        team: 'Equipe Beta',
-        imagePlaceholder: 'Placeholder image - jeu #2',
-        githubUrl: '#',
+        title: 'Nova and his missing sister',
+        team: 'Index Error Line 69',
+        imageFile: 'Nova and his missing sister.png',
       },
       {
         rank: 3,
-        title: 'Nom du jeu gagnant #3',
-        team: 'Equipe Gamma',
-        imagePlaceholder: 'Placeholder image - jeu #3',
-        githubUrl: '#',
+        title: "Freddy Blanchard's Pizza Simulator",
+        team: 'celeR',
+        imageFile: 'FNAF Blanchard.png',
+        githubUrl: 'https://github.com/nallaLH/GameJam4.git',
       },
     ],
     allGames: [
       {
-        id: '2025-top-1',
-        title: 'Nom du jeu gagnant #1',
-        team: 'Equipe Alpha',
-        imagePlaceholder: 'Placeholder image - jeu #1',
-        githubUrl: '#',
+        id: '2026-top-1',
+        title: 'La Legende Deux Gustave Et Les Couleurs Perdu',
+        team: 'Les Table Tope',
+        imageFile: 'La l\u00e9gende deux gustave et les couleurs Perdu.png',
         isPodium: true,
       },
       {
-        id: '2025-top-2',
-        title: 'Nom du jeu gagnant #2',
-        team: 'Equipe Beta',
-        imagePlaceholder: 'Placeholder image - jeu #2',
-        githubUrl: '#',
+        id: '2026-top-2',
+        title: 'Nova and his missing sister',
+        team: 'Index Error Line 69',
+        imageFile: 'Nova and his missing sister.png',
         isPodium: true,
       },
       {
-        id: '2025-top-3',
-        title: 'Nom du jeu gagnant #3',
-        team: 'Equipe Gamma',
-        imagePlaceholder: 'Placeholder image - jeu #3',
-        githubUrl: '#',
+        id: '2026-top-3',
+        title: "Freddy Blanchard's Pizza Simulator",
+        team: 'celeR',
+        imageFile: 'FNAF Blanchard.png',
+        githubUrl: 'https://github.com/nallaLH/GameJam4.git',
         isPodium: true,
       },
       {
-        id: '2025-game-4',
-        title: 'Nom du jeu participant #4',
-        team: 'Equipe Delta',
-        imagePlaceholder: 'Placeholder image - jeu #4',
-        githubUrl: '#',
+        id: '2026-game-4',
+        title: 'Baddielands',
+        team: 'Ubergames',
+        imageFile: 'Baddielands.png',
       },
       {
-        id: '2025-game-5',
-        title: 'Nom du jeu participant #5',
-        team: 'Equipe Epsilon',
-        imagePlaceholder: 'Placeholder image - jeu #5',
-        githubUrl: '#',
-      },
-      {
-        id: '2025-game-6',
-        title: 'Nom du jeu participant #6',
-        team: 'Equipe Zeta',
-        imagePlaceholder: 'Placeholder image - jeu #6',
-        githubUrl: '#',
+        id: '2026-game-5',
+        title: 'Otamotone',
+        team: 'Poupoule et Poulette',
+        imageFile: 'Otamotone.png',
+        githubUrl: 'https://github.com/nar0ji/otamatone',
       },
     ],
   },
 ];
+
+const getGameJamImagePath = (imageFile: string) => encodeURI(`/asset/GameJam/${imageFile}`);
 
 const rankLabel: Record<Winner['rank'], string> = {
   1: '1er',
@@ -139,13 +130,25 @@ export default function GameJamPage() {
                   className={`gamejam-card gamejam-rank-${winner.rank}`}
                 >
                   <div className="gamejam-rank-badge">{rankLabel[winner.rank]}</div>
-                  <div className="gamejam-image-placeholder">{winner.imagePlaceholder}</div>
+                  <div className="gamejam-image-placeholder">
+                    <Image
+                      src={getGameJamImagePath(winner.imageFile)}
+                      alt={winner.title}
+                      fill
+                      sizes="(max-width: 900px) 100vw, 33vw"
+                      className="gamejam-image"
+                    />
+                  </div>
                   <div className="gamejam-card-content">
                     <h3>{winner.title}</h3>
                     <p>{winner.team}</p>
-                    <a href={winner.githubUrl} className="gamejam-link">
-                      Lien GitHub (a remplacer)
-                    </a>
+                    {winner.githubUrl ? (
+                      <a href={winner.githubUrl} className="gamejam-link" target="_blank" rel="noreferrer">
+                        Voir le GitHub
+                      </a>
+                    ) : (
+                      <span className="gamejam-link gamejam-link-disabled">Pas de lien GitHub</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -160,13 +163,25 @@ export default function GameJamPage() {
                 {edition.allGames.map((game) => (
                   <div key={game.id} className="gamejam-all-game-card">
                     {game.isPodium && <span className="gamejam-top-badge">Top 3</span>}
-                    <div className="gamejam-all-game-image">{game.imagePlaceholder}</div>
+                    <div className="gamejam-all-game-image">
+                      <Image
+                        src={getGameJamImagePath(game.imageFile)}
+                        alt={game.title}
+                        fill
+                        sizes="(max-width: 900px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        className="gamejam-image"
+                      />
+                    </div>
                     <div className="gamejam-all-game-content">
                       <h4>{game.title}</h4>
                       <p>{game.team}</p>
-                      <a href={game.githubUrl} className="gamejam-link">
-                        Lien GitHub (a remplacer)
-                      </a>
+                      {game.githubUrl ? (
+                        <a href={game.githubUrl} className="gamejam-link" target="_blank" rel="noreferrer">
+                          Voir le GitHub
+                        </a>
+                      ) : (
+                        <span className="gamejam-link gamejam-link-disabled">Pas de lien GitHub</span>
+                      )}
                     </div>
                   </div>
                 ))}
