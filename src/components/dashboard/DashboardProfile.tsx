@@ -133,30 +133,56 @@ export default function DashboardProfile() {
             )}
           </div>
           <div className="avatar-actions">
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              style={{ display: 'none' }}
-              id="avatar-upload"
-            />
-            <button
-              className="btn btn-secondary btn-sm"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={avatarLoading}
-            >
-              {avatarLoading ? 'Envoi...' : 'Changer la photo'}
-            </button>
-            {user.avatar_url && (
+            {user.avatar_url ? (
               <button
-                className="btn btn-sm"
+                className="avatar-delete-btn"
                 onClick={handleRemoveAvatar}
                 disabled={avatarLoading}
-                style={{ color: '#dc2626', background: 'none', padding: '0.5rem' }}
               >
-                Supprimer
+                <span>{avatarLoading ? 'Suppression...' : 'Supprimer'}</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 3h6l1 2h4v2H4V5h4l1-2zm1 6h2v8h-2V9zm4 0h2v8h-2V9zM7 9h2v8H7V9zM6 21h12a1 1 0 0 0 1-1V8H5v12a1 1 0 0 0 1 1z" />
+                </svg>
               </button>
+            ) : (
+              <div className="containerDG">
+                <div className="headerDG">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path
+                      d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
+                      stroke="#000000"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <p>{avatarLoading ? 'Uploading...' : 'Browse File to upload!'}</p>
+                </div>
+                <label htmlFor="file" className="footerDG">
+                  <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M15.331 6H8.5v20h15V14.154h-8.169z" />
+                    <path d="M18.153 6h-.009v5.342H23.5v-.002z" />
+                  </svg>
+                  <p>{avatarLoading ? 'Uploading...' : 'Not selected file'}</p>
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path
+                      d="M5.16565 10.1534C5.07629 8.99181 5.99473 8 7.15975 8H16.8402C18.0053 8 18.9237 8.9918 18.8344 10.1534L18.142 19.1534C18.0619 20.1954 17.193 21 16.1479 21H7.85206C6.80699 21 5.93811 20.1954 5.85795 19.1534L5.16565 10.1534Z"
+                      stroke="#000000"
+                      strokeWidth="2"
+                    />
+                    <path d="M19.5 5H4.5" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M10 3C10 2.44772 10.4477 2 11 2H13C13.5523 2 14 2.44772 14 3V5H10V3Z" stroke="#000000" strokeWidth="2" />
+                  </svg>
+                </label>
+                <input
+                  ref={fileInputRef}
+                  id="file"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  disabled={avatarLoading}
+                />
+              </div>
             )}
             <p className="avatar-hint">JPG, PNG. Max 2 Mo.</p>
           </div>
@@ -326,6 +352,37 @@ export default function DashboardProfile() {
             flex-direction: column;
             gap: 0.5rem;
             align-items: flex-start;
+          }
+          .avatar-delete-btn {
+            border: none;
+            border-radius: 999px;
+            background: #ff4045;
+            color: #fff;
+            min-width: 176px;
+            padding: 0.65rem 1.15rem 0.55rem;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+          }
+          .avatar-delete-btn:hover:not(:disabled) {
+            background: #ff2e35;
+            transform: translateY(-1px);
+          }
+          .avatar-delete-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+          }
+          .avatar-delete-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
           }
           .avatar-hint {
             font-size: 0.8rem;
