@@ -1,49 +1,66 @@
-.file-upload-form {
-  width: fit-content;
-  height: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1e1e1e; /* Dark background for the form */
-}
-
-.file-upload-label input {
-  display: none;
-}
-
-.file-upload-label svg {
-  height: 50px;
-  fill: #666; /* Lighter gray for the SVG fill */
-  margin-bottom: 20px;
-}
-
-.file-upload-label {
-  cursor: pointer;
-  background-color: #333; /* Darker background for the label */
-  padding: 30px 70px;
-  border-radius: 40px;
-  border: 2px dashed #666; /* Lighter gray dashed border */
-  box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.5); /* Adjusted shadow */
-  color: #eee; /* Text color for the label */
-}
-
-.file-upload-design {
+.containerDG {
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 10px;
   gap: 5px;
+  background-color: rgba(0, 110, 255, 0.041);
 }
 
-.browse-button {
-  background-color: #666; /* Lighter gray for the button */
-  padding: 5px 15px;
+.headerDG {
+  flex: 1;
+  width: 100%;
+  border: 2px dashed royalblue;
   border-radius: 10px;
-  color: #eee; /* Off-white text for better contrast */
-  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.browse-button:hover {
-  background-color: #888; /* Slightly lighter gray on hover */
-  color: #fff; /* White text on hover */
+.headerDG svg {
+  height: 100px;
+}
+
+.headerDG p {
+  text-align: center;
+  color: black;
+}
+
+.footerDG {
+  background-color: rgba(0, 110, 255, 0.075);
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: black;
+  border: none;
+}
+
+.footerDG svg {
+  height: 130%;
+  fill: royalblue;
+  background-color: rgba(70, 66, 66, 0.103);
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+}
+
+.footerDG p {
+  flex: 1;
+  text-align: center;
+}
+
+#file {
+  display: none;
 }
