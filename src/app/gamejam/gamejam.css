@@ -267,10 +267,24 @@
   color: #991b1b;
 }
 
+.gamejam-reaction-btn.reaction-heart {
+  width: 2.2rem;
+  height: 2.2rem;
+  min-width: 2.2rem;
+  min-height: 2.2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.gamejam-reaction-btn.reaction-heart:hover:not(:disabled) {
+  border: none;
+  background: transparent;
+}
+
 .gamejam-reaction-btn.reaction-heart.is-active {
-  background: #ffe4e6;
-  border-color: #fda4af;
-  color: #9f1239;
+  border: none;
+  background: transparent;
 }
 
 .gamejam-reactions-login {
