@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import GameJamClient from './GameJamClient';
 import { gameJamResults } from './data';
+import './gamejam.css';
 
 export const metadata: Metadata = {
   title: 'GameJam',
