@@ -1,40 +1,123 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useId } from 'react';
 import { api } from '@/lib/api';
 import { IconUsers, IconUserCheck, IconTrendingUp, IconDollarSign, IconActivity, IconRefresh } from '@/components/Icons';
 import type { AdminUserStats } from '@/types';
 
-function BarChart({ data, labelKey, valueKey, color = '#1a1a2e', height = 200 }: {
+function formatChartLabel(rawLabel: string): string {
+  if (/^\d{4}-\d{2}$/.test(rawLabel)) {
+    const [year, month] = rawLabel.split('-').map(Number);
+    const date = new Date(year, (month || 1) - 1, 1);
+    return date.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' });
+  }
+
+  if (/^\d{2}-\d{2}$/.test(rawLabel)) {
+    const [month, day] = rawLabel.split('-').map(Number);
+    const date = new Date(new Date().getFullYear(), (month || 1) - 1, day || 1);
+    return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+  }
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(rawLabel)) {
+    const date = new Date(rawLabel);
+    if (!Number.isNaN(date.getTime())) {
+      return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+    }
+  }
+
+  return rawLabel;
+}
+
+function buildSmoothPath(points: Array<{ x: number; y: number }>): string {
+  if (points.length === 0) return '';
+  if (points.length === 1) return `M ${points[0].x} ${points[0].y} L ${points[0].x} ${points[0].y}`;
+  let path = `M ${points[0].x} ${points[0].y}`;
+
+  for (let i = 0; i < points.length - 1; i += 1) {
+    const p0 = points[i - 1] || points[i];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2] || p2;
+
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+
+    path += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
+  }
+
+  return path;
+}
+
+function LineChart({ data, labelKey, valueKey, color = '#1a1a2e', height = 220 }: {
   data: Array<Record<string, unknown>>;
   labelKey: string;
   valueKey: string;
   color?: string;
   height?: number;
 }) {
+  const gradientId = useId().replace(/:/g, '');
   if (!data.length) return <div className="chart-empty">Aucune donnee</div>;
 
   const values = data.map(d => Number(d[valueKey]) || 0);
   const max = Math.max(...values, 1);
-  const barWidth = Math.max(20, Math.min(60, (100 / data.length)));
+  const width = 680;
+  const marginTop = 12;
+  const marginRight = 12;
+  const marginBottom = 38;
+  const marginLeft = 40;
+  const innerWidth = width - marginLeft - marginRight;
+  const innerHeight = height - marginTop - marginBottom;
+
+  const points = data.map((d, i) => {
+    const val = Number(d[valueKey]) || 0;
+    const ratio = max === 0 ? 0 : val / max;
+    const x = marginLeft + (data.length === 1 ? innerWidth / 2 : (i / (data.length - 1)) * innerWidth);
+    const y = marginTop + innerHeight - ratio * innerHeight;
+    return { x, y, value: val, label: formatChartLabel(String(d[labelKey])) };
+  });
+
+  const linePath = buildSmoothPath(points);
+  const areaPath = `${linePath} L ${points[points.length - 1].x} ${marginTop + innerHeight} L ${points[0].x} ${marginTop + innerHeight} Z`;
+  const yTicks = [0, Math.round(max / 3), Math.round((2 * max) / 3), max]
+    .filter((v, i, arr) => arr.indexOf(v) === i)
+    .sort((a, b) => a - b);
 
   return (
-    <div className="chart-container" style={{ height }}>
-      <div className="chart-bars">
-        {data.map((d, i) => {
-          const val = Number(d[valueKey]) || 0;
-          const pct = (val / max) * 100;
-          const label = String(d[labelKey]);
-          const shortLabel = label.length > 7 ? label.slice(5) : label;
+    <div className="line-chart-wrapper" style={{ height }}>
+      <svg viewBox={`0 0 ${width} ${height}`} className="line-chart-svg" role="img" aria-label="Graphique en courbe">
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity="0.18" />
+            <stop offset="100%" stopColor={color} stopOpacity="0.03" />
+          </linearGradient>
+        </defs>
+
+        {yTicks.map((tick) => {
+          const y = marginTop + innerHeight - (tick / max) * innerHeight;
           return (
-            <div key={i} className="chart-bar-group" style={{ width: `${barWidth}%` }}>
-              <span className="chart-bar-value">{val}</span>
-              <div className="chart-bar" style={{ height: `${Math.max(pct, 4)}%`, background: color }} />
-              <span className="chart-bar-label">{shortLabel}</span>
-            </div>
+            <g key={tick}>
+              <line x1={marginLeft} y1={y} x2={width - marginRight} y2={y} className="line-chart-grid" />
+              <text x={marginLeft - 10} y={y + 4} className="line-chart-y-label">
+                {tick}
+              </text>
+            </g>
           );
         })}
-      </div>
+
+        <path d={areaPath} fill={`url(#${gradientId})`} />
+        <path d={linePath} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" />
+
+        {points.map((p, i) => (
+          <g key={`${p.label}-${i}`}>
+            <circle cx={p.x} cy={p.y} r="3.5" fill={color} className="line-chart-point" />
+            <text x={p.x} y={height - 10} className="line-chart-x-label" textAnchor="middle">
+              {p.label}
+            </text>
+          </g>
+        ))}
+      </svg>
     </div>
   );
 }
@@ -147,7 +230,7 @@ export default function AdminStats() {
               Inscriptions par mois
             </h2>
           </div>
-          <BarChart
+          <LineChart
             data={stats?.registrationsPerMonth || []}
             labelKey="month"
             valueKey="count"
@@ -162,7 +245,7 @@ export default function AdminStats() {
               Connexions (7 derniers jours)
             </h2>
           </div>
-          <BarChart
+          <LineChart
             data={stats?.loginsPerDay || []}
             labelKey="day"
             valueKey="count"
