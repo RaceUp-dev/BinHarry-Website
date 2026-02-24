@@ -78,8 +78,16 @@ function LineChart({ data, labelKey, valueKey, color = '#1a1a2e', height = 220 }
     return { x, y, value: val, label: formatChartLabel(String(d[labelKey])) };
   });
 
-  const linePath = buildSmoothPath(points);
-  const areaPath = `${linePath} L ${points[points.length - 1].x} ${marginTop + innerHeight} L ${points[0].x} ${marginTop + innerHeight} Z`;
+  const plotPoints = points.length === 1
+    ? [
+        { x: marginLeft, y: points[0].y },
+        points[0],
+        { x: width - marginRight, y: points[0].y },
+      ]
+    : points;
+
+  const linePath = buildSmoothPath(plotPoints);
+  const areaPath = `${linePath} L ${plotPoints[plotPoints.length - 1].x} ${marginTop + innerHeight} L ${plotPoints[0].x} ${marginTop + innerHeight} Z`;
   const yTicks = [0, Math.round(max / 3), Math.round((2 * max) / 3), max]
     .filter((v, i, arr) => arr.indexOf(v) === i)
     .sort((a, b) => a - b);
