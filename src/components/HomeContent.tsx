@@ -31,14 +31,6 @@ export default function HomeContent() {
           <p className="hero-desc">
             Rejoins la communauté ! Soirées, événements, tutorat et bien plus encore.
           </p>
-          <div className="hero-actions">
-            <Link href="/auth" className="hero-btn hero-btn-primary">
-              Rejoindre le BDE
-            </Link>
-            <a href="https://discord.gg/wXpRMds6BC" target="_blank" rel="noopener noreferrer" className="hero-btn hero-btn-secondary">
-              Discord
-            </a>
-          </div>
         </div>
       </section>
 
