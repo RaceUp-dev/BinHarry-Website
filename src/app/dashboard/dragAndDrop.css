@@ -1,15 +1,16 @@
 .containerDG {
-  height: 300px;
-  width: 300px;
+  height: 240px;
+  width: 240px;
   border-radius: 10px;
   box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 8px;
   gap: 5px;
   background-color: rgba(0, 110, 255, 0.041);
+  margin: 0 auto;
 }
 
 .headerDG {
@@ -24,12 +25,14 @@
 }
 
 .headerDG svg {
-  height: 100px;
+  height: 72px;
 }
 
 .headerDG p {
   text-align: center;
   color: black;
+  max-width: 80%;
+  margin: 0;
 }
 
 .footerDG {

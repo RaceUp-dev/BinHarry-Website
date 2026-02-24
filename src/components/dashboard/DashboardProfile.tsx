@@ -74,12 +74,12 @@ export default function DashboardProfile() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      setMessage({ type: 'error', text: 'Veuillez sélectionner une image' });
+      setMessage({ type: 'error', text: 'Fichier invalide. Formats acceptes: JPG, PNG. Taille max: 2 Mo.' });
       return;
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      setMessage({ type: 'error', text: 'L\'image ne doit pas dépasser 2 Mo' });
+      setMessage({ type: 'error', text: 'Fichier trop lourd. Formats acceptes: JPG, PNG. Taille max: 2 Mo.' });
       return;
     }
 
@@ -92,12 +92,12 @@ export default function DashboardProfile() {
 
       if (response.success && response.data) {
         updateUser(response.data);
-        setMessage({ type: 'success', text: 'Photo de profil mise à jour' });
+        setMessage({ type: 'success', text: 'Photo de profil mise a jour' });
       } else {
-        setMessage({ type: 'error', text: response.error || 'Erreur lors de la mise à jour' });
+        setMessage({ type: 'error', text: response.error || 'Erreur lors de la mise a jour' });
       }
     } catch {
-      setMessage({ type: 'error', text: 'Erreur lors du traitement de l\'image' });
+      setMessage({ type: 'error', text: 'Erreur lors du traitement de l image' });
     }
 
     setAvatarLoading(false);
@@ -123,28 +123,47 @@ export default function DashboardProfile() {
           <h2>Photo de profil</h2>
         </div>
         <div className="avatar-section">
-          <div className="avatar-preview">
-            {user.avatar_url ? (
-              <img src={user.avatar_url} alt="Avatar" className="avatar-img" />
-            ) : (
-              <span className="avatar-initials">
-                {user.prenom[0]}{user.nom[0]}
-              </span>
-            )}
-          </div>
-          <div className="avatar-actions">
-            {user.avatar_url ? (
-              <button
-                className="avatar-delete-btn"
-                onClick={handleRemoveAvatar}
-                disabled={avatarLoading}
-              >
-                <span>{avatarLoading ? 'Suppression...' : 'Supprimer'}</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M9 3h6l1 2h4v2H4V5h4l1-2zm1 6h2v8h-2V9zm4 0h2v8h-2V9zM7 9h2v8H7V9zM6 21h12a1 1 0 0 0 1-1V8H5v12a1 1 0 0 0 1 1z" />
-                </svg>
-              </button>
-            ) : (
+          {user.avatar_url ? (
+            <>
+              <div className="avatar-preview avatar-preview-uploaded">
+                <img src={user.avatar_url} alt="Avatar" className="avatar-img" />
+              </div>
+              <div className="avatar-actions avatar-actions-uploaded">
+                <input
+                  ref={fileInputRef}
+                  id="avatar-replace-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  disabled={avatarLoading}
+                  style={{ display: 'none' }}
+                />
+                <button
+                  type="button"
+                  className="avatar-action-btn avatar-change-btn"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={avatarLoading}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 20h4l10-10-4-4L4 16v4zm12.7-12.3 1.6-1.6a1 1 0 0 1 1.4 0l1.3 1.3a1 1 0 0 1 0 1.4L19.4 10l-2.7-2.3z" />
+                  </svg>
+                  <span>{avatarLoading ? 'Envoi...' : "Changer l'image"}</span>
+                </button>
+                <button
+                  type="button"
+                  className="avatar-action-btn avatar-remove-btn"
+                  onClick={handleRemoveAvatar}
+                  disabled={avatarLoading}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 3h6l1 2h4v2H4V5h4l1-2zm1 6h2v8h-2V9zm4 0h2v8h-2V9zM7 9h2v8H7V9zM6 21h12a1 1 0 0 0 1-1V8H5v12a1 1 0 0 0 1 1z" />
+                  </svg>
+                  <span>{avatarLoading ? 'Suppression...' : 'Supprimer'}</span>
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="avatar-actions">
               <div className="containerDG">
                 <div className="headerDG">
                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -156,14 +175,14 @@ export default function DashboardProfile() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <p>{avatarLoading ? 'Uploading...' : 'Browse File to upload!'}</p>
+                  <p>{avatarLoading ? 'Envoi...' : 'Choisissez un fichier a envoyer'}</p>
                 </div>
                 <label htmlFor="file" className="footerDG">
                   <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M15.331 6H8.5v20h15V14.154h-8.169z" />
                     <path d="M18.153 6h-.009v5.342H23.5v-.002z" />
                   </svg>
-                  <p>{avatarLoading ? 'Uploading...' : 'Not selected file'}</p>
+                  <p>{avatarLoading ? 'Envoi...' : 'Aucun fichier selectionne'}</p>
                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path
                       d="M5.16565 10.1534C5.07629 8.99181 5.99473 8 7.15975 8H16.8402C18.0053 8 18.9237 8.9918 18.8344 10.1534L18.142 19.1534C18.0619 20.1954 17.193 21 16.1479 21H7.85206C6.80699 21 5.93811 20.1954 5.85795 19.1534L5.16565 10.1534Z"
@@ -183,9 +202,8 @@ export default function DashboardProfile() {
                   disabled={avatarLoading}
                 />
               </div>
-            )}
-            <p className="avatar-hint">JPG, PNG. Max 2 Mo.</p>
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -321,8 +339,11 @@ export default function DashboardProfile() {
           }
           .avatar-section {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
           }
           .avatar-preview {
             width: 80px;
@@ -339,6 +360,13 @@ export default function DashboardProfile() {
             font-weight: 700;
             text-transform: uppercase;
           }
+          .avatar-preview-uploaded {
+            width: 260px;
+            height: 260px;
+            border-radius: 14px;
+            margin: 0 auto;
+            background: #e2e8f0;
+          }
           .avatar-img {
             width: 100%;
             height: 100%;
@@ -351,43 +379,58 @@ export default function DashboardProfile() {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            align-items: flex-start;
+            align-items: center;
+            width: 100%;
           }
-          .avatar-delete-btn {
+          .avatar-actions-uploaded {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            width: 100%;
+          }
+          .avatar-action-btn {
             border: none;
-            border-radius: 999px;
-            background: #ff4045;
-            color: #fff;
-            min-width: 176px;
-            padding: 0.65rem 1.15rem 0.55rem;
+            border-radius: 12px;
+            height: 52px;
+            padding: 0 1rem;
             display: inline-flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.2rem;
-            font-weight: 700;
-            font-size: 1.1rem;
-            line-height: 1;
+            gap: 0.55rem;
+            font-size: 1.05rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+            transition: filter 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
           }
-          .avatar-delete-btn:hover:not(:disabled) {
-            background: #ff2e35;
+          .avatar-action-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+          }
+          .avatar-action-btn:hover:not(:disabled) {
+            filter: brightness(0.97);
             transform: translateY(-1px);
           }
-          .avatar-delete-btn:disabled {
+          .avatar-action-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
           }
-          .avatar-delete-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
+          .avatar-change-btn {
+            background: #bcd3eb;
+            color: #0f172a;
           }
-          .avatar-hint {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin: 0;
+          .avatar-remove-btn {
+            background: #f1d4d9;
+            color: #8b1f2a;
+          }
+          @media (max-width: 768px) {
+            .avatar-actions-uploaded {
+              grid-template-columns: 1fr;
+            }
+            .avatar-preview-uploaded {
+              width: 220px;
+              height: 220px;
+            }
           }
         `}</style>
       </div>
