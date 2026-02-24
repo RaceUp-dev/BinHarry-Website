@@ -131,24 +131,53 @@ export default function GameJamClient({ editions }: GameJamClientProps) {
               className={`gamejam-reaction-btn reaction-like ${myReaction?.like ? 'is-active' : ''}`}
               onClick={() => void handleReaction(gameId, 'like')}
               disabled={pendingActionKey === `${gameId}-like`}
+              aria-label="Like"
+              title="Like"
             >
-              Like
+              <svg className="gamejam-reaction-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M7 22H4a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3m0 9V13m0 9h8.4a2 2 0 0 0 1.96-1.6l1.2-6A2 2 0 0 0 16.6 12H14V7a3 3 0 0 0-3-3l-4 9"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
             <button
               type="button"
               className={`gamejam-reaction-btn reaction-dislike ${myReaction?.dislike ? 'is-active' : ''}`}
               onClick={() => void handleReaction(gameId, 'dislike')}
               disabled={pendingActionKey === `${gameId}-dislike`}
+              aria-label="Dislike"
+              title="Dislike"
             >
-              Dislike
+              <svg className="gamejam-reaction-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M7 2H4a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h3m0-9v9m0-9h8.4a2 2 0 0 1 1.96 1.6l1.2 6A2 2 0 0 1 16.6 12H14v5a3 3 0 0 1-3 3l-4-9"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
             <button
               type="button"
               className={`gamejam-reaction-btn reaction-heart ${myReaction?.heart ? 'is-active' : ''}`}
               onClick={() => void handleReaction(gameId, 'heart')}
               disabled={pendingActionKey === `${gameId}-heart`}
+              aria-label="Coeur"
+              title="Coeur"
             >
-              Coeur
+              <svg className="gamejam-reaction-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 21s-6.7-4.3-9.2-8.3C.4 9 .9 5.1 4 3.4A5.1 5.1 0 0 1 12 6a5.1 5.1 0 0 1 8-2.6c3.1 1.7 3.6 5.6 1.2 9.3C18.7 16.7 12 21 12 21Z"
+                  fill="currentColor"
+                />
+              </svg>
             </button>
           </div>
         ) : (
