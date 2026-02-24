@@ -66,7 +66,11 @@ export default function DashboardPage() {
       <aside className="dashboard-sidebar">
         <div className="dashboard-sidebar-header">
           <div className="dashboard-user-avatar">
-            {user.prenom[0]}{user.nom[0]}
+            {user.avatar_url ? (
+              <img src={user.avatar_url} alt={`${user.prenom} ${user.nom}`} />
+            ) : (
+              <>{user.prenom[0]}{user.nom[0]}</>
+            )}
           </div>
           <div className="dashboard-user-info">
             <strong>{user.prenom} {user.nom}</strong>
