@@ -10,6 +10,8 @@ import DashboardSettings from '@/components/dashboard/DashboardSettings';
 import EmailVerificationBanner from '@/components/dashboard/EmailVerificationBanner';
 import { IconUser, IconCreditCard, IconMail, IconSettings } from '@/components/Icons';
 import './dashboard.css';
+import './dragAndDrop.css';
+import '../admin/admin.css';
 
 type TabType = 'profile' | 'subscriptions' | 'mailbox' | 'settings';
 
