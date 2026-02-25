@@ -23,6 +23,7 @@ export default function Footer() {
           <nav className="footer-nav">
             <Link href="/boutique">Boutique</Link>
             <Link href="/gamejam">GameJam</Link>
+            <Link href="/contact">Contact</Link>
           </nav>
         </div>
 

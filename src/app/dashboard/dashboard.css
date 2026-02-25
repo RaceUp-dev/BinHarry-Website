@@ -55,6 +55,14 @@
   font-weight: 600;
   font-size: 1rem;
   text-transform: uppercase;
+  overflow: hidden;
+}
+
+.dashboard-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .dashboard-user-info {
@@ -662,6 +670,76 @@
   background: rgba(180, 83, 9, 0.1);
 }
 
+/* Profile avatar action buttons (match long blue + red layout) */
+.dashboard-content .avatar-section {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.dashboard-content .avatar-section > .avatar-preview-uploaded {
+  width: 260px !important;
+  height: 260px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  background: #e2e8f0 !important;
+}
+
+.dashboard-content .avatar-section > .avatar-preview-uploaded .avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+.dashboard-content .avatar-actions-uploaded {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.75rem !important;
+  width: 100% !important;
+}
+
+.dashboard-content .avatar-actions-uploaded .avatar-action-btn {
+  width: 100% !important;
+  min-height: 52px !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 0 1rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.55rem !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+.dashboard-content .avatar-actions-uploaded .avatar-action-btn svg {
+  width: 20px !important;
+  height: 20px !important;
+  fill: currentColor !important;
+}
+
+.dashboard-content .avatar-actions-uploaded .avatar-change-btn {
+  background: #bcd3eb !important;
+  color: #0f172a !important;
+}
+
+.dashboard-content .avatar-actions-uploaded .avatar-remove-btn {
+  background: #f1d4d9 !important;
+  color: #8b1f2a !important;
+}
+
+.dashboard-content .avatar-actions-uploaded .avatar-action-btn:hover:not(:disabled) {
+  filter: brightness(0.97);
+  transform: translateY(-1px);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .dashboard {
@@ -716,5 +794,14 @@
   .banner-actions {
     width: 100%;
     justify-content: center;
+  }
+
+  .dashboard-content .avatar-actions-uploaded {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-content .avatar-section > .avatar-preview-uploaded {
+    width: 220px !important;
+    height: 220px !important;
   }
 }
