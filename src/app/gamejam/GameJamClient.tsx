@@ -228,8 +228,8 @@ export default function GameJamClient({ editions }: GameJamClientProps) {
         <span className="section-label">GAMEJAM</span>
         <h1 className="gamejam-title">Creer, partager, progresser</h1>
         <p className="gamejam-subtitle">
-          La GameJam BinHarry met la creation et l&apos;entraide au premier plan.
-          Le podium met en avant les coups de coeur de la communaute, mais tous les jeux de chaque edition sont accessibles ci-dessous.
+          La GameJam met la creation et l&apos;entraide au premier plan.
+          Le podium met en avant les coups de coeur de la communaute. Testez aussi tous les jeux de chaque edition !
         </p>
         {isLoadingReactions && <p className="gamejam-reaction-status">Chargement des avis...</p>}
         {reactionError && <p className="gamejam-reaction-error">{reactionError}</p>}
