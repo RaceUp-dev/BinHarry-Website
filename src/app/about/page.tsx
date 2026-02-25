@@ -130,6 +130,9 @@ export default function AboutPage() {
           Tu es étudiant au BUT Informatique de Reims ? Rejoins-nous ! L&apos;adhésion annuelle est à seulement 5€ 
           et te donne accès à tous nos événements et avantages exclusifs.
         </p>
+        <p className="about-join-help-text">
+          Si vous ne souhaitez pas d&eacute;pensez de l&apos;argent mais vouloir malgr&eacute; tout soutenir vous pouvez tr&egrave;s bien nous aidez pour organizer les travaux ou un tas d&apos;autres projets, pour toute demande passer par le discord !
+        </p>
         <div className="about-cta">
           <a href="/auth" className="about-btn about-btn-primary">Créer un compte</a>
           <a href="https://discord.gg/wXpRMds6BC" target="_blank" rel="noopener noreferrer" className="about-btn about-btn-secondary">
