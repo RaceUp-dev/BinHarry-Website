@@ -671,6 +671,32 @@
 }
 
 /* Profile avatar action buttons (match long blue + red layout) */
+.dashboard-content .avatar-section {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.dashboard-content .avatar-section > .avatar-preview-uploaded {
+  width: 260px !important;
+  height: 260px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  background: #e2e8f0 !important;
+}
+
+.dashboard-content .avatar-section > .avatar-preview-uploaded .avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
 .dashboard-content .avatar-actions-uploaded {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
@@ -772,5 +798,10 @@
 
   .dashboard-content .avatar-actions-uploaded {
     grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-content .avatar-section > .avatar-preview-uploaded {
+    width: 220px !important;
+    height: 220px !important;
   }
 }
