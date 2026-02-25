@@ -144,7 +144,7 @@ export default function DashboardProfile() {
                   onClick={() => fileInputRef.current?.click()}
                   disabled={avatarLoading}
                 >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                     <path d="M4 20h4l10-10-4-4L4 16v4zm12.7-12.3 1.6-1.6a1 1 0 0 1 1.4 0l1.3 1.3a1 1 0 0 1 0 1.4L19.4 10l-2.7-2.3z" />
                   </svg>
                   <span>{avatarLoading ? 'Envoi...' : "Changer l'image"}</span>
@@ -155,7 +155,7 @@ export default function DashboardProfile() {
                   onClick={handleRemoveAvatar}
                   disabled={avatarLoading}
                 >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                     <path d="M9 3h6l1 2h4v2H4V5h4l1-2zm1 6h2v8h-2V9zm4 0h2v8h-2V9zM7 9h2v8H7V9zM6 21h12a1 1 0 0 0 1-1V8H5v12a1 1 0 0 0 1 1z" />
                   </svg>
                   <span>{avatarLoading ? 'Suppression...' : 'Supprimer'}</span>
@@ -364,6 +364,10 @@ export default function DashboardProfile() {
             width: 260px;
             height: 260px;
             border-radius: 14px;
+            align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 0 auto;
             background: #e2e8f0;
           }
@@ -371,6 +375,8 @@ export default function DashboardProfile() {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            display: block;
           }
           .avatar-initials {
             line-height: 1;
